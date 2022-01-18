@@ -17,9 +17,6 @@ class Movie{
 
 
   factory Movie.fromJson(dynamic json) {
-    if (json == null) {
-      throw Exception('Json is empty');
-    }
 
     return Movie(
         backdropPath: json['backdrop_path'],
