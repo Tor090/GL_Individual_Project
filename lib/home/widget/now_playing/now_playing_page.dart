@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:individual_project/home/block/now_play_movie_cubit.dart';
+import 'package:individual_project/home/widget/now_playing/now_playing_view.dart';
 
-import 'home_view.dart';
-
-class HomePage extends StatelessWidget {
-
+class NowPlayingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(create: (_) => NowPlayMovieCubit())
-    ], child: HomeView());
+    return BlocProvider(create: (_) => NowPlayMovieCubit(),
+     child: NowPlayingView());
   }
 }
