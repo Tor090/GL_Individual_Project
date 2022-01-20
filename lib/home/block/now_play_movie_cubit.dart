@@ -7,8 +7,6 @@ class NowPlayMovieCubit extends Cubit<List<Movie>>{
 
   void createNowPlayMovieList() async{
     List<Movie> movieList = await getNowPlayingMovie();
-    //MovieLoaded(movieList);
-    //print('mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM==== ${movieList.length}');
     emit(movieList);
   }
 

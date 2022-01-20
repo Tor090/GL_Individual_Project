@@ -14,8 +14,6 @@ import 'package:individual_project/model/movie.dart';
       final response = await _dio.get(url);
       var movies = response.data['results'] as List;
       List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
-      // print(movieList);
-      // print('SUCCES');
        return movieList;
     } catch (error) {
       throw Exception(
@@ -29,8 +27,6 @@ Future<List<Movie>> getPopularMovie() async {
     final response = await _dio.get(url);
     var movies = response.data['results'] as List;
     List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
-    // print(movieList);
-    // print('SUCCES');
     return movieList;
   } catch (error) {
     throw Exception(

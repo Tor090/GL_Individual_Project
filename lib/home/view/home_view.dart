@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:individual_project/home/widget/ganre_display/ganre_page.dart';
-import 'package:individual_project/home/widget/now_playing/now_playing_page.dart';
-import 'package:individual_project/home/widget/popular_movie/popular_page.dart';
+import 'package:individual_project/home/widget/movie/movie_page.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -10,9 +8,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('MovieDB'),
-      ),
+
       body: _homebody(),
     );
   }
@@ -22,18 +18,16 @@ class HomeView extends StatelessWidget {
       child: Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
                   Text('Now Playing', style: TextStyle(fontSize: 25),),
-                  NowPlayingPage(),
+                  MoviePage(selectedGanre: 0,query: 'now_playing',height: 2,width: 1.7,),
                   Text('Popular', style: TextStyle(fontSize: 20),),
-                  PopularPage(selectedGanre: 0),
-                  GanrePage(),
+                  MoviePage(selectedGanre: 0,query: 'popular',height: 3,width: 1.7,),
+                  GanrePage(query: '',height: 3,width: 1.7),
                 ],
         ),
       ),
     );
   }
-
-
 
 }

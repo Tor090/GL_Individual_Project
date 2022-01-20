@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:individual_project/home/block/ganre_cubit.dart';
-import 'package:individual_project/home/block/popular_movie_cubit.dart';
-import 'package:individual_project/home/widget/popular_movie/popular_page.dart';
+import 'package:individual_project/home/widget/movie/movie_page.dart';
 import 'package:individual_project/model/ganre.dart';
 
 class GanreView extends StatefulWidget {
+  final String query;
+  final double height, width;
 
-
-  const GanreView({Key? key}) : super(key: key);
+  const GanreView({
+    Key? key,
+    required this.query,
+    required this.height,
+    required this.width}) : super(key: key);
 
   @override
   _GanreViewState createState() => _GanreViewState();
@@ -49,11 +53,6 @@ class _GanreViewState extends State<GanreView> {
                               setState(() {
                                 Ganre genre = ganres[index];
                                 selectedGanre = genre.id;
-                                print(selectedGanre);
-                                // context
-                                //     .read<PopularMovieCubit>()
-                                //     .createPopularMovieList(selectedGanre: selectedGanre);
-
                               });
                             },
                             child: Container(
@@ -62,7 +61,7 @@ class _GanreViewState extends State<GanreView> {
                                 border: Border.all(
                                   color: Colors.black45,
                                 ),
-                                borderRadius: BorderRadius.all(
+                                borderRadius: const BorderRadius.all(
                                   Radius.circular(25),
                                 ),
                                 color: (ganre.id == selectedGanre)
@@ -90,14 +89,16 @@ class _GanreViewState extends State<GanreView> {
                 ),
               );
             },),
-        //_newGanre(selectedGanre),
-        PopularPage(key: UniqueKey(),selectedGanre: selectedGanre),
+
+        MoviePage(key: UniqueKey(),
+          selectedGanre: selectedGanre,
+          query: widget.query,
+          height: widget.height,
+          width: widget.width),
       ],
     );
   }
 
-  // Widget _newGanre(int selectedGanre){
-  //
-  // }
+
 }
 
