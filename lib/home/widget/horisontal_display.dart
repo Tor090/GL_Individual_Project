@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:individual_project/model/movie.dart';
+import 'package:individual_project/movie_detail/view/movie_detail_page.dart';
 
 class HorisontalDisplay extends StatelessWidget {
   List<Movie> movies;
@@ -18,18 +19,32 @@ class HorisontalDisplay extends StatelessWidget {
               Movie movie = movies[index];
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child:  ClipRRect(
-                    child: Image.network(
-                      'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
-                      height:
-                      MediaQuery.of(context).size.height / height,
-                      width:
-                      MediaQuery.of(context).size.width / width,
-                      fit: BoxFit.fill,
-                    ),
-                    borderRadius: const BorderRadius.all(
-                        Radius.circular(10)),
+                child:  InkWell(
+                  onTap: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) => MovieDetailPage(movieId: movie.id),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    elevation: 5.0,
+                    borderOnForeground: true,
+                    child: ClipRRect(
+                        child: Image.network(
+                          'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
+                          height:
+                          MediaQuery.of(context).size.height / height,
+                          width:
+                          MediaQuery.of(context).size.width / width,
+                          fit: BoxFit.fill,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(10)),
 
+                    ),
+                  ),
                 ),
               );
             }

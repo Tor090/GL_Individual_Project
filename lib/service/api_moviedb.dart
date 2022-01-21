@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:individual_project/model/ganre.dart';
 import 'package:individual_project/model/movie.dart';
+import 'package:individual_project/model/movie_detail.dart';
 
 
   Dio _dio = Dio();
@@ -54,6 +55,18 @@ Future<List<Movie>> getMovieByGanre(int selectedGanre) async {
     var movies = response.data['results'] as List;
     List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
     return movieList;
+  } catch (error) {
+    throw Exception(
+        'Exception with error: $error');
+  }
+}
+
+Future<MovieDetail> getMovieDetail(int movieId) async {
+  try {
+    print(movieId);
+    final response = await _dio.get('$baseUrl/movie/$movieId?$apiKey');
+    MovieDetail movieDetail = MovieDetail.fromJson(response.data);
+    return movieDetail;
   } catch (error) {
     throw Exception(
         'Exception with error: $error');
