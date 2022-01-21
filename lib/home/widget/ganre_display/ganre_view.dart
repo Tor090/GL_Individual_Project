@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:individual_project/home/block/ganre_cubit.dart';
+import 'package:individual_project/home/block/ganre_state.dart';
 import 'package:individual_project/home/widget/movie/movie_page.dart';
 import 'package:individual_project/model/ganre.dart';
 
 class GanreView extends StatefulWidget {
-  final String query;
   final double height, width;
 
   const GanreView({
     Key? key,
-    required this.query,
     required this.height,
     required this.width}) : super(key: key);
 
@@ -19,12 +18,10 @@ class GanreView extends StatefulWidget {
 }
 
 class _GanreViewState extends State<GanreView> {
-  GanreMovieCubit ganreMovieCubit = GanreMovieCubit();
   int selectedGanre = 28;
 
   @override
   void initState() {
-    ganreMovieCubit.createGanreMovieList();
     super.initState();
   }
 
@@ -33,10 +30,18 @@ class _GanreViewState extends State<GanreView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BlocBuilder<GanreMovieCubit,List<Ganre>>(
-          bloc: ganreMovieCubit,
+        BlocBuilder<GanreMovieCubit,GanreState>(
             builder: (context, state) {
-              List<Ganre> ganres = state;
+      if (state is LoadingState) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      } else if (state is ErrorState) {
+        return const Center(
+          child: Icon(Icons.close),
+        );
+      } else if (state is LoadedState) {
+              List<Ganre> ganres = state.ganreMovieList;
               return Container(
                 height: 45,
                 child: ListView.builder(
@@ -88,11 +93,15 @@ class _GanreViewState extends State<GanreView> {
                   },
                 ),
               );
-            },),
+            }else{
+              return Container();
+            }
+          },
+        ),
 
         MoviePage(key: UniqueKey(),
           selectedGanre: selectedGanre,
-          query: widget.query,
+          query: '',
           height: widget.height,
           width: widget.width),
       ],

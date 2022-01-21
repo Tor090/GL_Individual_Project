@@ -16,7 +16,7 @@ class MoviePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (_) => MovieCubit(),
-      child: MovieView(selectedGanre: selectedGanre, query: query,height: height,width: width));
+    return BlocProvider(create: (_) => MovieCubit(selectedGanre: selectedGanre, query: query),
+      child: MovieView(height: height,width: width));
   }
 }

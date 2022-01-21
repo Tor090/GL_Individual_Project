@@ -23,7 +23,7 @@ class HomeView extends StatelessWidget {
                   MoviePage(selectedGanre: 0,query: 'now_playing',height: 2,width: 1.7,),
                   Text('Popular', style: TextStyle(fontSize: 20),),
                   MoviePage(selectedGanre: 0,query: 'popular',height: 3,width: 1.7,),
-                  GanrePage(query: '',height: 3,width: 1.7),
+                  GanrePage(height: 3,width: 1.7),
                 ],
         ),
       ),
