@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:individual_project/model/ganre.dart';
 import 'package:individual_project/model/movie.dart';
 
 
@@ -13,11 +14,48 @@ import 'package:individual_project/model/movie.dart';
       final response = await _dio.get(url);
       var movies = response.data['results'] as List;
       List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
-      // print(movieList);
-      // print('SUCCES');
        return movieList;
     } catch (error) {
       throw Exception(
           'Exception with error: $error');
     }
   }
+
+Future<List<Movie>> getPopularMovie() async {
+  try {
+    final url = '$baseUrl/movie/popular?$apiKey';
+    final response = await _dio.get(url);
+    var movies = response.data['results'] as List;
+    List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
+    return movieList;
+  } catch (error) {
+    throw Exception(
+        'Exception with error: $error');
+  }
+}
+
+Future<List<Ganre>> getGenreList() async {
+  try {
+    final url = '$baseUrl/genre/movie/list?$apiKey';
+    final response = await _dio.get(url);
+    var genres = response.data['genres'] as List;
+    List<Ganre> ganreList = genres.map((g) => Ganre.fromJson(g)).toList();
+    return ganreList;
+  } catch (error) {
+    throw Exception(
+        'Exception with error: $error');
+  }
+}
+
+Future<List<Movie>> getMovieByGanre(int selectedGanre) async {
+  try {
+    final url = '$baseUrl/discover/movie?with_genres=$selectedGanre&$apiKey';
+    final response = await _dio.get(url);
+    var movies = response.data['results'] as List;
+    List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
+    return movieList;
+  } catch (error) {
+    throw Exception(
+        'Exception with error: $error');
+  }
+}

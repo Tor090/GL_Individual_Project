@@ -5,12 +5,8 @@ import 'package:individual_project/service/api_moviedb.dart';
 class NowPlayMovieCubit extends Cubit<List<Movie>>{
   NowPlayMovieCubit() : super([]);
 
-  List<Movie> movieList = [];
-
-  void createMovieList() async{
-    movieList = await getNowPlayingMovie();
-    //MovieLoaded(movieList);
-    print('mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM==== ${movieList.length}');
+  void createNowPlayMovieList() async{
+    List<Movie> movieList = await getNowPlayingMovie();
     emit(movieList);
   }
 
