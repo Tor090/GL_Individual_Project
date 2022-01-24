@@ -1,10 +1,13 @@
+import 'package:individual_project/model/screenshot.dart';
+
+import 'cast.dart';
+
 class MovieDetail {
   final int id;
   final String? title;
   final String? backdropPath;
   final String? posterPath;
   final String? budget;
-  final String? homePage;
   final String? originalTitle;
   final String? overview;
   final String? popularity;
@@ -13,6 +16,8 @@ class MovieDetail {
   final String? voteAverage;
   final String? voteCount;
 
+  late List<Screenshot> movieScreenshot;
+  late List<Cast> castList;
 
   MovieDetail(
       {required this.id,
@@ -20,7 +25,6 @@ class MovieDetail {
         this.backdropPath,
         this.posterPath,
         this.budget,
-        this.homePage,
         this.originalTitle,
         this.overview,
         this.popularity,
@@ -37,7 +41,6 @@ class MovieDetail {
         backdropPath: json['backdrop_path'],
         posterPath: json['poster_path'],
         budget: json['budget'].toString(),
-        homePage: json['home_page'],
         originalTitle: json['original_title'],
         overview: json['overview'],
         popularity: json['popularity'].toString(),
