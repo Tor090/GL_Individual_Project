@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:individual_project/model/movie.dart';
 import 'package:individual_project/movie_detail/view/movie_detail_page.dart';
@@ -29,8 +30,11 @@ class HorisontalDisplay extends StatelessWidget {
                     );
                   },
                   child: Card(
-                    elevation: 5.0,
+                    elevation: 5,
                     borderOnForeground: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     child: ClipRRect(
                         child: Image.network(
                           'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
@@ -39,6 +43,7 @@ class HorisontalDisplay extends StatelessWidget {
                           width:
                           MediaQuery.of(context).size.width / width,
                           fit: BoxFit.fill,
+                         
                         ),
                         borderRadius: const BorderRadius.all(
                             Radius.circular(10)),
