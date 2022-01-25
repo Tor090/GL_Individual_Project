@@ -12,7 +12,7 @@ class SearchMovieView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
+        backgroundColor: Colors.teal[900],
       ),
       body: BlocBuilder<SearchMovieCubit,SearchState>
         (builder: (context, state) {
