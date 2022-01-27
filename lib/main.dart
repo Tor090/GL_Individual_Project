@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home/view/home_view.dart';
+import 'navigator/route_generator.dart';
 
 
 void main() {
@@ -12,9 +13,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        backgroundColor: Colors.white,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeView(),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        backgroundColor: Colors.black,
+            // New
+      ),
+      onGenerateRoute: RouteGenerator.onGenerateRoute,
+      onUnknownRoute: RouteGenerator.onUnknownRoute,
+      //home: HomeView(),
     );
   }
 }

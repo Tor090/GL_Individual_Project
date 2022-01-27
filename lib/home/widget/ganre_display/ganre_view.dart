@@ -34,7 +34,7 @@ class _GanreViewState extends State<GanreView> {
             builder: (context, state) {
       if (state is LoadingState) {
         return const Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator.adaptive(),
         );
       } else if (state is ErrorState) {
         return const Center(

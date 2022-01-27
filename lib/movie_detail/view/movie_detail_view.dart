@@ -10,12 +10,13 @@ class MovieDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //backgroundColor: Theme.of(context).backgroundColor,
       body: BlocBuilder<MovieDetailCubit,MovieDetailState>(
 
         builder: (context, state) {
           if (state is LoadingState) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator.adaptive(),
             );
           } else if (state is ErrorState) {
             return const Center(

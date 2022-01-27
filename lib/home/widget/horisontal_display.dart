@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:individual_project/home/view/home_view.dart';
 import 'package:individual_project/model/movie.dart';
 import 'package:individual_project/movie_detail/view/movie_detail_page.dart';
+import 'package:individual_project/navigator/routes.dart';
 
 class HorisontalDisplay extends StatelessWidget {
   List<Movie> movies;
   double height, width;
   HorisontalDisplay({Key? key, required this.movies, required this.height, required this.width}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +25,7 @@ class HorisontalDisplay extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child:  InkWell(
                   onTap: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                        builder: (context) => MovieDetailPage(movieId: movie.id),
-                      ),
-                    );
+                    Navigator.pushNamed(context, movieDetailPage, arguments: movie.id);
                   },
                   child: Card(
                     elevation: 5,

@@ -12,14 +12,12 @@ class PersonDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //
-      // ),
+      backgroundColor: Theme.of(context).backgroundColor,
       body: BlocBuilder<PersonDetailCubit,PersonDetailState>(
         builder: (context, state) {
           if (state is LoadingState) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator.adaptive(),
             );
           } else if (state is ErrorState) {
             return const Center(
@@ -70,7 +68,7 @@ class PersonDetailView extends StatelessWidget {
                       Text('Biography', style: TextStyle(fontSize: 22),),
                       SizedBox(height: 10),
                       Text(person.biography,style: TextStyle(fontSize: 18),),
-                      
+
                     ],
                   ),
                 ),
