@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:individual_project/model/cast.dart';
 import 'package:individual_project/model/movie_detail.dart';
 import 'package:individual_project/model/screenshot.dart';
+import 'package:individual_project/navigator/routes.dart';
 import 'package:individual_project/person_detail/view/person_detail_page.dart';
 
 import 'button_back.dart';
@@ -33,7 +34,7 @@ class Body extends StatelessWidget {
                   ),
                   // height: 500,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).backgroundColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
@@ -112,12 +113,11 @@ class Body extends StatelessWidget {
                                 return const Text('No photo');
                               }
                               return InkWell(
-                                onTap:() { Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => PersonDetailPage(personId: cast.id),
-                                  ),
-                                );
+                                onTap:() {
+                                  Navigator.pushNamed(
+                                      context,
+                                      personDetailPage,
+                                      arguments: cast.id);
                                 },
                                 child: Column(
                                     children: [

@@ -3,7 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:individual_project/home/widget/ganre_display/ganre_page.dart';
 import 'package:individual_project/home/widget/movie/movie_page.dart';
+import 'package:individual_project/navigator/routes.dart';
 import 'package:individual_project/search/view/search_page.dart';
+
+
+
+
 
 class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
@@ -13,7 +18,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      backgroundColor: Theme.of(context).backgroundColor,
       body: _homebody(context),
     );
   }
@@ -34,12 +39,9 @@ class HomeView extends StatelessWidget {
                   hintText: 'Search',
                   border: InputBorder.none,
                   hintStyle: TextStyle(color: Colors.white),
-                  suffixIcon: IconButton(onPressed: (){Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SearchMoviePage(query: _controller.text),
-                    ),
-                  );
+                  suffixIcon: IconButton(onPressed: (){
+                    Navigator.pushNamed(context, searchMoviePage, arguments: _controller.text);
+                    _controller.text = '';
                   },
                       icon: Icon(Icons.search),
                     color: Colors.white,
