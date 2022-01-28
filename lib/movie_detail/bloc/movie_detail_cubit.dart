@@ -1,16 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:individual_project/model/movie_detail.dart';
-import 'package:individual_project/service/api_moviedb.dart';
 import 'package:individual_project/service/moviedb.dart';
 
 import 'movie_detail_state.dart';
 
 class MovieDetailCubit extends Cubit<MovieDetailState>{
-  MovieDetailCubit({required this.movieId}) : super(InitialState()){
+  MovieDetailCubit({required this.movieId, required this.movieDB}) : super(InitialState()){
   createMovieDetailList(movieId: movieId);
   }
 
-  MovieDB movieDB = ApiMovieDb();
+  MovieDB movieDB;
   final int movieId;
 
   void createMovieDetailList({required int movieId}) async{

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:individual_project/home/block/movie_cubit.dart';
 import 'package:individual_project/home/widget/movie/movie_view.dart';
+import 'package:individual_project/service/api_moviedb.dart';
 
 class MoviePage extends StatelessWidget {
   final int selectedGanre;
@@ -16,7 +17,7 @@ class MoviePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (_) => MovieCubit(selectedGanre: selectedGanre, query: query),
+    return BlocProvider(create: (_) => MovieCubit(selectedGanre: selectedGanre, query: query, movieDB: ApiMovieDb()),
       child: MovieView(height: height,width: width));
   }
 }

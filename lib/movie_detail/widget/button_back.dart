@@ -13,7 +13,7 @@ class ButtonBack extends StatelessWidget {
     return SafeArea(
       child: InkWell(
             onTap: onTap,
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back,
               size: 30,
             ),

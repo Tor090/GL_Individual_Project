@@ -1,18 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:individual_project/model/movie.dart';
-import 'package:individual_project/service/api_moviedb.dart';
 import 'package:individual_project/service/moviedb.dart';
 
 import 'movie_state.dart';
 
 class MovieCubit extends Cubit<MovieState>{
-  MovieCubit({required this.selectedGanre, required this.query}) : super(InitialState()){
+  MovieCubit({required this.selectedGanre, required this.query, required this.movieDB}) : super(InitialState()){
     createMovieList(selectedGanre: selectedGanre, query: query);
   }
 
   final int selectedGanre;
   final String query;
-  MovieDB movieDB = ApiMovieDb();
+  MovieDB movieDB;
 
   void createMovieList({int selectedGanre = 0, String query = ''}) async{
     emit(LoadingState());
