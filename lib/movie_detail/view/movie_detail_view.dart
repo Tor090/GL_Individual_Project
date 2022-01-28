@@ -5,12 +5,11 @@ import 'package:individual_project/movie_detail/bloc/movie_detail_state.dart';
 import 'package:individual_project/movie_detail/widget/body.dart';
 
 class MovieDetailView extends StatelessWidget {
-  MovieDetailView({Key? key }) : super(key: key);
+  const MovieDetailView({Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Theme.of(context).backgroundColor,
       body: BlocBuilder<MovieDetailCubit,MovieDetailState>(
 
         builder: (context, state) {

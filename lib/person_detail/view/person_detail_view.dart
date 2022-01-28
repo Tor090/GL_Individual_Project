@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:individual_project/model/person.dart';
@@ -52,22 +51,20 @@ class PersonDetailView extends StatelessWidget {
                           Flexible(
                             child: Column(
                               children: [
-                                Text(person.name, style: TextStyle(fontSize: 22),),
-                                SizedBox(height: 10),
-                                Text('Birthday: ${person.birthday}',style: TextStyle(fontSize: 18),),
-                                SizedBox(height: 10),
-                                Text('Popularity: ${person.popularity}',style: TextStyle(fontSize: 18),),
+                                Text(person.name, style: const TextStyle(fontSize: 22),),
+                                const SizedBox(height: 10),
+                                Text('Birthday: ${person.birthday}',style: const TextStyle(fontSize: 18),),
+                                const SizedBox(height: 10),
+                                Text('Popularity: ${person.popularity}',style: const TextStyle(fontSize: 18),),
                               ],
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
-
-
-                      Text('Biography', style: TextStyle(fontSize: 22),),
-                      SizedBox(height: 10),
-                      Text(person.biography,style: TextStyle(fontSize: 18),),
+                      const SizedBox(height: 10),
+                      const Text('Biography', style: TextStyle(fontSize: 22),),
+                      const SizedBox(height: 10),
+                      Text(person.biography,style: const TextStyle(fontSize: 18),),
 
                     ],
                   ),

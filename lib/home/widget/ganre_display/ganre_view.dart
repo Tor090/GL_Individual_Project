@@ -41,14 +41,14 @@ class _GanreViewState extends State<GanreView> {
           child: Icon(Icons.close),
         );
       } else if (state is LoadedState) {
-              List<Ganre> ganres = state.ganreMovieList;
-              return Container(
+              List<Ganre> genres = state.ganreMovieList;
+              return SizedBox(
                 height: 45,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: ganres.length,
+                  itemCount: genres.length,
                   itemBuilder: (context, index) {
-                    Ganre ganre = ganres[index];
+                    Ganre ganre = genres[index];
                     return Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Column(
@@ -56,12 +56,12 @@ class _GanreViewState extends State<GanreView> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                Ganre genre = ganres[index];
+                                Ganre genre = genres[index];
                                 selectedGanre = genre.id;
                               });
                             },
                             child: Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: Colors.black45,

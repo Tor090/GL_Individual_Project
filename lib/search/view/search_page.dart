@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:individual_project/search/bloc/search_cubit.dart';
 import 'package:individual_project/search/view/search_view.dart';
+import 'package:individual_project/service/api_moviedb.dart';
 
 class SearchMoviePage extends StatelessWidget {
   final String query;
@@ -11,7 +12,7 @@ class SearchMoviePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (_) => SearchMovieCubit(query: query),
-        child: SearchMovieView());
+    return BlocProvider(create: (_) => SearchMovieCubit(query: query, movieDB: ApiMovieDb()),
+        child: const SearchMovieView());
   }
 }

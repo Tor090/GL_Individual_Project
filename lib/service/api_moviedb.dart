@@ -8,12 +8,13 @@ import 'package:individual_project/model/screenshot.dart';
 import 'package:individual_project/service/moviedb.dart';
 
 class ApiMovieDb extends MovieDB{
-  Dio _dio = Dio();
+  final _dio = Dio();
 
 
+  @override
   Future<List<Movie>> getNowPlayingMovie() async {
     try {
-      final url = '${MovieDB.baseUrl}/movie/now_playing?${MovieDB.apiKey}';
+      const url = '${MovieDB.baseUrl}/movie/now_playing?${MovieDB.apiKey}';
       final response = await _dio.get(url);
       var movies = response.data['results'] as List;
       List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
@@ -24,9 +25,10 @@ class ApiMovieDb extends MovieDB{
     }
   }
 
+  @override
   Future<List<Movie>> getPopularMovie() async {
     try {
-      final url = '${MovieDB.baseUrl}/movie/popular?${MovieDB.apiKey}';
+      const url = '${MovieDB.baseUrl}/movie/popular?${MovieDB.apiKey}';
       final response = await _dio.get(url);
       var movies = response.data['results'] as List;
       List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
@@ -37,9 +39,10 @@ class ApiMovieDb extends MovieDB{
     }
   }
 
+  @override
   Future<List<Ganre>> getGenreList() async {
     try {
-      final url = '${MovieDB.baseUrl}/genre/movie/list?${MovieDB.apiKey}';
+      const url = '${MovieDB.baseUrl}/genre/movie/list?${MovieDB.apiKey}';
       final response = await _dio.get(url);
       var genres = response.data['genres'] as List;
       List<Ganre> ganreList = genres.map((g) => Ganre.fromJson(g)).toList();
@@ -50,6 +53,7 @@ class ApiMovieDb extends MovieDB{
     }
   }
 
+  @override
   Future<List<Movie>> getMovieByGanre(int selectedGanre) async {
     try {
       final url = '${MovieDB.baseUrl}/discover/movie?with_genres=$selectedGanre&${MovieDB.apiKey}';
@@ -63,9 +67,9 @@ class ApiMovieDb extends MovieDB{
     }
   }
 
+  @override
   Future<MovieDetail> getMovieDetail(int movieId) async {
     try {
-      print(movieId);
       final response = await _dio.get('${MovieDB.baseUrl}/movie/$movieId?${MovieDB.apiKey}');
       MovieDetail movieDetail = MovieDetail.fromJson(response.data);
       movieDetail.movieScreenshot = await getMovieImage(movieId);
@@ -77,18 +81,20 @@ class ApiMovieDb extends MovieDB{
     }
   }
 
+  @override
   Future<List<Screenshot>> getMovieImage(int movieId) async {
     try {
       final response = await _dio.get('${MovieDB.baseUrl}/movie/$movieId/images?${MovieDB.apiKey}');
       var screenshots = response.data['backdrops'] as List;
       List<Screenshot> screenshotList = screenshots.map((m) => Screenshot.fromJson(m)).toList();
       return screenshotList;
-    } catch (error, stacktrace) {
+    } catch (error) {
       throw Exception(
           'Exception with error: $error');
     }
   }
 
+  @override
   Future<List<Cast>> getCastList(int movieId) async {
     try {
       final response =
@@ -103,6 +109,7 @@ class ApiMovieDb extends MovieDB{
     }
   }
 
+  @override
   Future<Person> getPerson(int personId) async{
     try {
       final response =
@@ -115,6 +122,7 @@ class ApiMovieDb extends MovieDB{
     }
   }
 
+  @override
   Future<List<Movie>> getSearchMovieList(String query) async{
     try{
       final response =

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:individual_project/person_detail/bloc/person_detail_cubit.dart';
 import 'package:individual_project/person_detail/view/person_detail_view.dart';
+import 'package:individual_project/service/api_moviedb.dart';
 
 class PersonDetailPage extends StatelessWidget {
   final int personId;
@@ -9,7 +10,7 @@ class PersonDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (_) => PersonDetailCubit(personId: personId),
-        child: PersonDetailView());
+    return BlocProvider(create: (_) => PersonDetailCubit(personId: personId, movieDB: ApiMovieDb()),
+        child: const PersonDetailView());
   }
 }
