@@ -12,9 +12,13 @@ class SearchMovieCubit extends Cubit<SearchState>{
   final String query;
 
   void createSearchMovieList({required String query}) async{
+    try{
     emit(LoadingState());
-    List<Movie> searcMovieList = await movieDB.getSearchMovieList(query);
-    emit(LoadedState(searcMovieList));
+    List<Movie> searchMovieList = await movieDB.getSearchMovieList(query);
+    emit(LoadedState(searchMovieList));
+    }catch(e){
+      emit(ErrorState());
+    }
   }
 
 }

@@ -15,7 +15,6 @@ class MovieView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MovieCubit, MovieState>(
-
         builder: (context, state) {
           if (state is LoadingState) {
             return const Center(

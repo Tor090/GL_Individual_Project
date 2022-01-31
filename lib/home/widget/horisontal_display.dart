@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:individual_project/constant/constant.dart';
+import 'package:individual_project/constant/style.dart';
 import 'package:individual_project/model/movie.dart';
 import 'package:individual_project/navigator/routes.dart';
 
@@ -23,6 +25,7 @@ class HorisontalDisplay extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child:  InkWell(
                   onTap: (){
+                    print(movie.id);
                     Navigator.pushNamed(context, movieDetailPage, arguments: movie.id);
                   },
                   child: Card(
@@ -33,7 +36,7 @@ class HorisontalDisplay extends StatelessWidget {
                     ),
                     child: ClipRRect(
                         child: Image.network(
-                          'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
+                          '${movie.posterPath}',
                           height:
                           MediaQuery.of(context).size.height / height,
                           width:
@@ -41,8 +44,7 @@ class HorisontalDisplay extends StatelessWidget {
                           fit: BoxFit.fill,
                          
                         ),
-                        borderRadius: const BorderRadius.all(
-                            Radius.circular(10)),
+                        borderRadius: movieBorder,
 
                     ),
                   ),

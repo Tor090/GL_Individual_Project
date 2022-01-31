@@ -1,3 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'movie.g.dart';
+
+@JsonSerializable()
 class Movie{
   final int id;
   final String posterPath;
@@ -11,12 +15,7 @@ class Movie{
       });
 
 
-  factory Movie.fromJson(dynamic json) {
+  factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 
-    return Movie(
-        id: json['id'],
-        posterPath: json['poster_path'],
-        title: json['title']
-        );
-  }
+  Map<String, dynamic> toJson() => _$MovieToJson(this);
 }

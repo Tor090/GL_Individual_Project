@@ -5,15 +5,17 @@ import 'package:individual_project/service/moviedb.dart';
 import 'movie_state.dart';
 
 class MovieCubit extends Cubit<MovieState>{
-  MovieCubit({required this.selectedGanre, required this.query, required this.movieDB}) : super(InitialState()){
-    createMovieList(selectedGanre: selectedGanre, query: query);
+  MovieCubit({required this.selectedGanre, required this.query, required this.movieDB})
+      : super(InitialState()){
+    createMovieList(selectedGanre: selectedGanre, query: query!);
   }
 
   final int selectedGanre;
-  final String query;
+  final String? query;
   MovieDB movieDB;
 
   void createMovieList({int selectedGanre = 0, String query = ''}) async{
+    try{
     emit(LoadingState());
     List<Movie> movieList;
     if (selectedGanre == 0 && query == 'popular'){
@@ -27,6 +29,9 @@ class MovieCubit extends Cubit<MovieState>{
         //emit(movieList);
     }
     emit(LoadedState(movieList));
+    }catch(e){
+      emit(ErrorState());
+    }
   }
 
 }

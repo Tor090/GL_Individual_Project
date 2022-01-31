@@ -13,9 +13,13 @@ class MovieDetailCubit extends Cubit<MovieDetailState>{
   final int movieId;
 
   void createMovieDetailList({required int movieId}) async{
+    try{
     emit(LoadingState());
     MovieDetail movieDetail = await movieDB.getMovieDetail(movieId);
     emit(LoadedState(movieDetail));
+    }catch(e){
+      emit(ErrorState());
+    }
   }
 
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:individual_project/constant/style.dart';
 import 'package:individual_project/model/movie.dart';
 import 'package:individual_project/movie_detail/view/movie_detail_page.dart';
 import 'package:individual_project/search/bloc/search_cubit.dart';
@@ -12,7 +13,6 @@ class SearchMovieView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.teal[900],
       ),
       body: BlocBuilder<SearchMovieCubit,SearchState>
         (builder: (context, state) {
@@ -35,21 +35,21 @@ class SearchMovieView extends StatelessWidget {
                     borderOnForeground: true,
                     child: InkWell(
                       onTap: (){
+                        print(movie.id);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                            builder: (context) => MovieDetailPage(movieId: movie.id),
+                            builder: (context) =>
+                                MovieDetailPage(movieId: movies[index].id),
                           ),
                         );
                       },
                       child: ClipRRect(
                               child: Image.network(
-                                'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
-
+                                movie.posterPath,
                                 fit: BoxFit.fill,
                               ),
-                              borderRadius: const BorderRadius.all(
-                                  Radius.circular(10)),
+                              borderRadius: movieBorder,
                             ),
                   ),
                 );

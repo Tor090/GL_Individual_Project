@@ -1,3 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'cast.g.dart';
+
+@JsonSerializable()
 class Cast {
   final String name;
   final String? profilePath;
@@ -5,11 +9,7 @@ class Cast {
 
   Cast({required this.name, required this.profilePath, required this.id});
 
-  factory Cast.fromJson(dynamic json) {
+  factory Cast.fromJson(Map<String, dynamic> json) => _$CastFromJson(json);
 
-    return Cast(
-        name: json['name'],
-        profilePath: json['profile_path'],
-        id: json['id']);
-  }
+  Map<String, dynamic> toJson() => _$CastToJson(this);
 }

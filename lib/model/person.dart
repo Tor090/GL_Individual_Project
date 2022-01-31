@@ -1,11 +1,16 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'person.g.dart';
+
+@JsonSerializable()
 class Person {
-  final String id;
-  final String gender;
+  final int id;
+  final int? gender;
   final String name;
   final String biography;
-  final String profilePath;
+  final String? profilePath;
   final String birthday;
-  final String popularity;
+  final double? popularity;
 
   Person(
       {required this.id,
@@ -16,16 +21,7 @@ class Person {
         required this.biography,
         required this.popularity});
 
-  factory Person.fromJson(dynamic json) {
+  factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
 
-
-    return Person(
-        id: json['id'].toString(),
-        gender: json['gender'].toString(),
-        name: json['name'],
-        biography: json['biography'],
-        profilePath: json['profile_path'],
-        birthday: json['birthday'],
-        popularity: json['popularity'].toString());
-  }
+  Map<String, dynamic> toJson() => _$PersonToJson(this);
 }

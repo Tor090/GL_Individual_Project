@@ -10,7 +10,6 @@ import 'package:individual_project/service/moviedb.dart';
 class ApiMovieDb extends MovieDB{
   final _dio = Dio();
 
-
   @override
   Future<List<Movie>> getNowPlayingMovie() async {
     try {
@@ -102,6 +101,7 @@ class ApiMovieDb extends MovieDB{
       var list = response.data['cast'] as List;
       List<Cast> castList = list
           .map((c) => Cast.fromJson(c)).toList();
+
       return castList;
     } catch (error) {
       throw Exception(
@@ -118,7 +118,7 @@ class ApiMovieDb extends MovieDB{
       return person;
     } catch (error) {
       throw Exception(
-          'Exception with error cast: $error');
+          'Exception with error: $error');
     }
   }
 
@@ -129,6 +129,7 @@ class ApiMovieDb extends MovieDB{
       await _dio.get('${MovieDB.baseUrl}/search/movie?${MovieDB.apiKey}&query=$query');
       var movies = response.data['results'] as List;
       List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
+      print(movieList);
       return movieList;
     }catch (error) {
       throw Exception('Exception with error: $error');

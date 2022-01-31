@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:individual_project/constant/style.dart';
 import 'package:individual_project/home/block/ganre_cubit.dart';
 import 'package:individual_project/home/block/ganre_state.dart';
 import 'package:individual_project/home/widget/movie/movie_page.dart';
@@ -66,9 +67,7 @@ class _GanreViewState extends State<GanreView> {
                                 border: Border.all(
                                   color: Colors.black45,
                                 ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(25),
-                                ),
+                                borderRadius: circularBorder,
                                 color: (ganre.id == selectedGanre)
                                     ? Colors.black45
                                     : Colors.white,

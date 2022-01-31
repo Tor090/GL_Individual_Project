@@ -12,9 +12,13 @@ class PersonDetailCubit extends Cubit<PersonDetailState>{
 
   final int personId;
   void createMovieDetailList({required int personId}) async{
+    try{
     emit(LoadingState());
     Person person = await movieDB.getPerson(personId);
     emit(LoadedState(person));
+    }catch(e){
+      emit(ErrorState());
+    }
   }
 
 }

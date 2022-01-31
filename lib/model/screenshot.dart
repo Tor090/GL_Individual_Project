@@ -1,28 +1,22 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'screenshot.g.dart';
+
+@JsonSerializable()
 class Screenshot extends Equatable {
-  final String aspect;
-  final String imagePath;
-  final int height;
-  final int width;
+  final String filePath;
 
-  Screenshot({required this.aspect,
-    required this.imagePath,
-    required this.height,
-    required this.width,
+  const Screenshot({
+    required this.filePath,
+
   });
 
-  factory Screenshot.fromJson(dynamic json) {
-    return Screenshot(
-        aspect: json['aspect_ratio']
-            .toString(),
-        imagePath: json['file_path'],
-        height: json['height'],
-        width: json['width'],
-        );
-  }
+  factory Screenshot.fromJson(Map<String, dynamic> json) => _$ScreenshotFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ScreenshotToJson(this);
 
   @override
   List<Object> get props =>
-      [aspect, imagePath, height, width];
+      [filePath];
 }

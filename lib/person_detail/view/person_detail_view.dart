@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:individual_project/constant/constant.dart';
+import 'package:individual_project/constant/style.dart';
 import 'package:individual_project/model/person.dart';
 import 'package:individual_project/movie_detail/widget/button_back.dart';
 import 'package:individual_project/person_detail/bloc/person_detail_cubit.dart';
@@ -26,9 +28,7 @@ class PersonDetailView extends StatelessWidget {
             Person person = state.person;
             return SafeArea(
               child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Column(
+                child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ButtonBack(
@@ -39,37 +39,39 @@ class PersonDetailView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           ClipRRect(
-                            child: Image.network(
-                              'https://image.tmdb.org/t/p/w500/${person.profilePath}',
+                            child: person.profilePath == null ?
+                                Image.asset('assets/no_photo.jpg',
+                                  height: MediaQuery.of(context).size.height /2.5,
+                                  width: MediaQuery.of(context).size.width / 2,) :
+                            Image.network(
+                              '${person.profilePath}',
                               height: MediaQuery.of(context).size.height /2.5,
                               width: MediaQuery.of(context).size.width / 2,
 
                             ),
-                            borderRadius: const BorderRadius.all(
-                                Radius.circular(10)),
+                            borderRadius: movieBorder,
                           ),
                           Flexible(
                             child: Column(
                               children: [
-                                Text(person.name, style: const TextStyle(fontSize: 22),),
+                                Text(person.name, style: movieDetailHeaderStyle),
                                 const SizedBox(height: 10),
-                                Text('Birthday: ${person.birthday}',style: const TextStyle(fontSize: 18),),
+                                Text('Birthday: ${person.birthday}',style: detailText,),
                                 const SizedBox(height: 10),
-                                Text('Popularity: ${person.popularity}',style: const TextStyle(fontSize: 18),),
+                                Text('Popularity: ${person.popularity}',style: detailText),
                               ],
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 10),
-                      const Text('Biography', style: TextStyle(fontSize: 22),),
+                      const Text('Biography', style: movieDetailHeaderStyle),
                       const SizedBox(height: 10),
-                      Text(person.biography,style: const TextStyle(fontSize: 18),),
+                      Text(person.biography,style: detailText),
 
                     ],
                   ),
                 ),
-              ),
             );
           }else{
             return throw Exception();
