@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:individual_project/constant/constant.dart';
+import 'package:individual_project/constant/style.dart';
 import 'package:individual_project/home/widget/ganre_display/ganre_page.dart';
 import 'package:individual_project/home/widget/movie/movie_page.dart';
 import 'package:individual_project/navigator/routes.dart';
@@ -24,17 +26,15 @@ class HomeView extends StatelessWidget {
     return Center(
       child: Container(
         padding: const EdgeInsets.only(left: 10),
-        height: 50,
         width: MediaQuery.of(context).size.width/1.2,
-        child: Expanded(
-              child: TextField(
+        child: TextField(
                 showCursor: false,
-                style: const TextStyle(color: Colors.white),
+                style: whiteColorStyle,
                 controller: _controller,
                 decoration: InputDecoration(
                   hintText: 'Search',
                   border: InputBorder.none,
-                  hintStyle: const TextStyle(color: Colors.white),
+                  hintStyle: whiteColorStyle,
                   suffixIcon: IconButton(onPressed: (){
                     Navigator.pushNamed(context, searchMoviePage, arguments: _controller.text);
                     _controller.text = '';
@@ -44,12 +44,8 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-
         decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(25),
-          ),
+          borderRadius: circularBorder,
           border: Border.all(
             width: 1,
             color: Colors.white
@@ -64,8 +60,8 @@ class HomeView extends StatelessWidget {
         child: Stack(
           children: [
             ImageFiltered(
-              imageFilter: ImageFilter.blur(sigmaY: 15,sigmaX: 15),
-              child: Image.asset('assets/moviedb.png'),
+              imageFilter: ImageFilter.blur(sigmaY: kBlur,sigmaX: kBlur),
+              child: Image.asset(kHomeBackgroundPhoto),
             ),
             SafeArea(
               child: Column(
@@ -75,16 +71,12 @@ class HomeView extends StatelessWidget {
                   const SizedBox(height: 50,),
                   const Text(
                     'Now Playing',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                    style: headerStyle
                   ),
-                  const MoviePage(selectedGanre: 0,query: 'now_playing',height: 2,width: 1.7,),
+                  const MoviePage(selectedGanre: 0,query: 'now_playing',height: kNowPlayHeigh,width: kMovieWidth,),
                   const Text('Popular', style: TextStyle(fontSize: 20),),
-                  const MoviePage(selectedGanre: 0,query: 'popular',height: 3,width: 1.7,),
-                  const GanrePage(height: 3,width: 1.7),
+                  const MoviePage(selectedGanre: 0,query: 'popular',height: kMovieHeigh,width: kMovieWidth,),
+                  const GanrePage(height: kMovieHeigh,width: kMovieWidth),
                 ],
               ),
             ),

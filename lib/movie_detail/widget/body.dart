@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:individual_project/constant/constant.dart';
+import 'package:individual_project/constant/style.dart';
 import 'package:individual_project/model/cast.dart';
 import 'package:individual_project/model/movie_detail.dart';
 import 'package:individual_project/model/screenshot.dart';
@@ -19,26 +21,22 @@ class Body extends StatelessWidget {
     return SingleChildScrollView(
       child: Stack(
               children: [movie.backdropPath == null ?
-                  Image.asset('assets/moviedb.png',
+                  Image.asset(kHomeBackgroundPhoto,
                   fit: BoxFit.fill,) :
-                Image.network('https://image.tmdb.org/t/p/w500/${movie.backdropPath}',
+                Image.network('${movie.backdropPath}',
                   fit: BoxFit.fill,),
                 ButtonBack(
                   onTap: () => Navigator.pop(context),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: size.height * 0.26),
-                  padding: const EdgeInsets.only(
-                    top: 20,
-                    left: 20,
-                    right: 20,
-                  ),
+                  padding: movieDetailPadding,
                   // height: 500,
                   decoration: BoxDecoration(
                     color: Theme.of(context).backgroundColor,
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      topRight: Radius.circular(24),
+                      topLeft: movieDetailContainerRadius,
+                      topRight: movieDetailContainerRadius,
                     ),
                   ),
                     child: Column(
@@ -52,19 +50,19 @@ class Body extends StatelessWidget {
                               width: size.width/2,
                               height: 50,
                               child: Flexible(
-                                child: Text('${movie.title} (${movie.releaseDate?.substring(0,4)})',
-                                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),),
+                                child: Text('${movie.title} ${movie.releaseDate}',
+                                  style: movieDetailHeaderStyle),
                               ),
                             ),
                           ],
                         ),
                         const SizedBox(height: 120,),
-                        const Text('Overview', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
-                        Text(movie.overview!, style: const TextStyle(fontSize: 18),),
+                        const Text('Overview', style: movieDetailHeaderStyle),
+                        Text(movie.overview, style: const TextStyle(fontSize: 18),),
                         const SizedBox(height: 10),
                         movie.movieScreenshot.isNotEmpty ?
-                        const Text('Screenshots', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),) :
-                        const SizedBox(height: 1,),
+                        const Text('Screenshots', style: movieDetailHeaderStyle) :
+                        const SizedBox(height: 1),
                         SizedBox(
                           height: 155,
                           child: ListView.separated(
@@ -81,13 +79,10 @@ class Body extends StatelessWidget {
                               return Card(
                                 elevation: 3,
                                 borderOnForeground: true,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: movieBorder,
                                   child: Image.network(
-                                    'https://image.tmdb.org/t/p/w500${image.imagePath}',
+                                    '$kphoto${image.filePath}',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -96,7 +91,8 @@ class Body extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        const Text('Cast', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                        const Text('Cast', style: movieDetailHeaderStyle),
+                        movie.castList.isNotEmpty ?
                         SizedBox(
                           height: 130,
                           child: ListView.separated(
@@ -122,20 +118,17 @@ class Body extends StatelessWidget {
                                       Card(
                                         elevation: 3,
                                         borderOnForeground: true,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(12),
-                                        ),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius: movieBorder,
                                           child: cast.profilePath == null ?
-                                          Image.asset('assets/no_photo.jpg',
-                                            height: 80,
-                                            width: 80,
+                                          Image.asset(kNoPhoto,
+                                            height: kMovieDetailCastImageSize,
+                                            width: kMovieDetailCastImageSize,
                                             fit: BoxFit.cover,):
                                           Image.network(
-                                            'https://image.tmdb.org/t/p/w500${cast.profilePath}',
-                                            height: 80,
-                                            width: 80,
+                                            '${cast.profilePath}',
+                                            height: kMovieDetailCastImageSize,
+                                            width: kMovieDetailCastImageSize,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -147,7 +140,7 @@ class Body extends StatelessWidget {
                               );
                             },
                           ),
-                        ),
+                        ): SizedBox(height: 1,),
                       ],
                  ),
                 ),
@@ -156,12 +149,12 @@ class Body extends StatelessWidget {
                         left: 8,
                         child:
                             ClipRRect(
-                              child: Image.network('https://image.tmdb.org/t/p/w500/${movie.posterPath}',
+                              child: Image.network('$kphoto${movie.posterPath}',
                                 //fit: BoxFit.fill,
                                 height: 220,
                                 width: 170,
                               ),
-                              borderRadius: BorderRadius.circular(25),
+                              borderRadius: circularBorder,
                             ),
                       ),
               ],

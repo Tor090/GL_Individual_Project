@@ -11,7 +11,6 @@ class MovieDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<MovieDetailCubit,MovieDetailState>(
-
         builder: (context, state) {
           if (state is LoadingState) {
             return const Center(

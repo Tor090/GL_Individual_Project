@@ -11,9 +11,13 @@ class GanreMovieCubit extends Cubit<GanreState>{
   MovieDB movieDB;
 
   void createGanreMovieList() async{
+    try{
     emit(LoadingState());
     List<Ganre> ganreMovieList = await movieDB.getGenreList();
     emit(LoadedState(ganreMovieList));
+    }catch(e){
+      emit(ErrorState());
+    }
   }
 
 }
