@@ -7,8 +7,8 @@ part of 'screenshot.dart';
 // **************************************************************************
 
 Screenshot _$ScreenshotFromJson(Map<String, dynamic> json) => Screenshot(
-      filePath: json['file_path'] as String,
-    );
+  filePath: json['file_path'] as String,
+);
 
 Map<String, dynamic> _$ScreenshotToJson(Screenshot instance) =>
     <String, dynamic>{

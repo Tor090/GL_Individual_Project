@@ -19,7 +19,7 @@ Person _$PersonFromJson(Map<String, dynamic> json) => Person(
       json['biography'] as String,
       popularity: json['popularity'] == null ? null :
       json['popularity'] as double,
-    );
+);
 
 Map<String, dynamic> _$PersonToJson(Person instance) => <String, dynamic>{
       'id': instance.id,
@@ -29,4 +29,4 @@ Map<String, dynamic> _$PersonToJson(Person instance) => <String, dynamic>{
       'profile_path': instance.profilePath,
       'birthday': instance.birthday,
       'popularity': instance.popularity,
-    };
+};

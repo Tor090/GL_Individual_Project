@@ -7,17 +7,17 @@ part of 'movie_detail.dart';
 // **************************************************************************
 
 MovieDetail _$MovieDetailFromJson(Map<String, dynamic> json) => MovieDetail(
-      id: json['id'] as int,
-      title: json['title'] as String?,
-      backdropPath: json['backdrop_path'] == null ? null :
-      'https://image.tmdb.org/t/p/w500/${json['backdrop_path'] as String}',
-      posterPath: json['poster_path'] as String?,
-      overview: json['overview'] == null ? 'Empty' :
-      json['overview'] as String,
-      releaseDate: json['release_date'] == '' ? '' :
-      '(${json['release_date'].toString().substring(0,4)})',
-      voteAverage: json['vote_average'] as double?,
-    );
+  id: json['id'] as int,
+  title: json['title'] as String?,
+  backdropPath: json['backdrop_path'] == null ? null :
+  'https://image.tmdb.org/t/p/w500/${json['backdrop_path'] as String}',
+  posterPath: json['poster_path'] as String?,
+  overview: json['overview'] == null ? 'Empty' :
+  json['overview'] as String,
+  releaseDate: json['release_date'] == '' ? '' :
+  '(${json['release_date'].toString().substring(0,4)})',
+  voteAverage: json['vote_average'] as double?,
+);
 
 Map<String, dynamic> _$MovieDetailToJson(MovieDetail instance) =>
     <String, dynamic>{

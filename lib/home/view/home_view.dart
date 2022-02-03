@@ -73,9 +73,19 @@ class HomeView extends StatelessWidget {
                     'Now Playing',
                     style: headerStyle
                   ),
-                  const MoviePage(selectedGanre: 0,query: 'now_playing',height: kNowPlayHeigh,width: kMovieWidth,),
+                  MoviePage(
+                    //key: UniqueKey(),
+                    selectedGanre: 0,
+                    query: 'now_playing',
+                    height: kNowPlayHeigh,
+                    width: kMovieWidth,),
                   const Text('Popular', style: TextStyle(fontSize: 20),),
-                  const MoviePage(selectedGanre: 0,query: 'popular',height: kMovieHeigh,width: kMovieWidth,),
+                   MoviePage(
+                     //key: UniqueKey(),
+                     selectedGanre: 0,
+                     query: 'popular',
+                     height: kMovieHeigh,
+                     width: kMovieWidth,),
                   const GanrePage(height: kMovieHeigh,width: kMovieWidth),
                 ],
               ),

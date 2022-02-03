@@ -23,7 +23,13 @@ class MoviePage extends StatelessWidget {
         MovieCubit(
             selectedGanre: selectedGanre,
             query: query,
-            movieDB: GetIt.instance.get<ApiMovieDb>()),
-      child: MovieView(height: height,width: width));
+            movieDB: GetIt.instance.get<ApiMovieDb>()
+           ),
+      child: MovieView(
+          selectedGanre: selectedGanre,
+          height: height,
+          width: width,
+          query: query,
+      ));
   }
 }

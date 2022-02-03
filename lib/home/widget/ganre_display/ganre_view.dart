@@ -100,7 +100,7 @@ class _GanreViewState extends State<GanreView> {
 
         MoviePage(key: UniqueKey(),
           selectedGanre: selectedGanre,
-          query: '',
+          query: 'ganre',
           height: widget.height,
           width: widget.width),
       ],
