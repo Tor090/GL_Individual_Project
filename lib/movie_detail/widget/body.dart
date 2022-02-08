@@ -21,7 +21,7 @@ class Body extends StatelessWidget {
     return SingleChildScrollView(
       child: Stack(
               children: [movie.backdropPath == null ?
-                  Image.asset(kHomeBackgroundPhoto,
+                  Image.asset(Constant.kHomeBackgroundPhoto,
                   fit: BoxFit.fill,) :
                 Image.network('${movie.backdropPath}',
                   fit: BoxFit.fill,),
@@ -82,7 +82,7 @@ class Body extends StatelessWidget {
                                 child: ClipRRect(
                                   borderRadius: movieBorder,
                                   child: Image.network(
-                                    '$kphoto${image.filePath}',
+                                    '${Constant.kphoto}${image.filePath}',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -121,14 +121,14 @@ class Body extends StatelessWidget {
                                         child: ClipRRect(
                                           borderRadius: movieBorder,
                                           child: cast.profilePath == null ?
-                                          Image.asset(kNoPhoto,
-                                            height: kMovieDetailCastImageSize,
-                                            width: kMovieDetailCastImageSize,
+                                          Image.asset(Constant.kNoPhoto,
+                                            height: Constant.kMovieDetailCastImageSize,
+                                            width: Constant.kMovieDetailCastImageSize,
                                             fit: BoxFit.cover,):
                                           Image.network(
                                             '${cast.profilePath}',
-                                            height: kMovieDetailCastImageSize,
-                                            width: kMovieDetailCastImageSize,
+                                            height: Constant.kMovieDetailCastImageSize,
+                                            width: Constant.kMovieDetailCastImageSize,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -149,7 +149,7 @@ class Body extends StatelessWidget {
                         left: 8,
                         child:
                             ClipRRect(
-                              child: Image.network('$kphoto${movie.posterPath}',
+                              child: Image.network('${Constant.kphoto}${movie.posterPath}',
                                 //fit: BoxFit.fill,
                                 height: 220,
                                 width: 170,

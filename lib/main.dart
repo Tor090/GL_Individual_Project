@@ -9,10 +9,10 @@ GetIt getIt = GetIt.instance;
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
-  final apiMovieDb = ApiMovieDb();
-  GetIt.instance.registerSingleton(apiMovieDb);
 
-  final database = await $FloorAppDatabase.databaseBuilder('movie1.db').build();
+  getIt.registerLazySingleton<ApiMovieDb>(() => ApiMovieDb());
+
+  final database = await $FloorAppDatabase.databaseBuilder('movie3.db').build();
   final dao = database.movieDao;
   getIt.registerSingleton<MovieDao>(dao);
 

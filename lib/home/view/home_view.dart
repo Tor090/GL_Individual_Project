@@ -22,7 +22,6 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _search(BuildContext context){
-
     return Center(
       child: Container(
         padding: const EdgeInsets.only(left: 10),
@@ -60,8 +59,8 @@ class HomeView extends StatelessWidget {
         child: Stack(
           children: [
             ImageFiltered(
-              imageFilter: ImageFilter.blur(sigmaY: kBlur,sigmaX: kBlur),
-              child: Image.asset(kHomeBackgroundPhoto),
+              imageFilter: ImageFilter.blur(sigmaY: Constant.kBlur,sigmaX: Constant.kBlur),
+              child: Image.asset(Constant.kHomeBackgroundPhoto),
             ),
             SafeArea(
               child: Column(
@@ -74,19 +73,15 @@ class HomeView extends StatelessWidget {
                     style: headerStyle
                   ),
                   MoviePage(
-                    //key: UniqueKey(),
-                    selectedGanre: 0,
-                    query: 'now_playing',
-                    height: kNowPlayHeigh,
-                    width: kMovieWidth,),
+                    selectedGanre: 1,
+                    height: Constant.kNowPlayHeigh,
+                    width: Constant.kMovieWidth,),
                   const Text('Popular', style: TextStyle(fontSize: 20),),
-                   MoviePage(
-                     //key: UniqueKey(),
-                     selectedGanre: 0,
-                     query: 'popular',
-                     height: kMovieHeigh,
-                     width: kMovieWidth,),
-                  const GanrePage(height: kMovieHeigh,width: kMovieWidth),
+                    MoviePage(
+                     selectedGanre: 2,
+                     height: Constant.kMovieHeigh,
+                     width: Constant.kMovieWidth,),
+                  GanrePage(height: Constant.kMovieHeigh,width: Constant.kMovieWidth),
                 ],
               ),
             ),

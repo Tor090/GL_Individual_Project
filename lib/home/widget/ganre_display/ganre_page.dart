@@ -15,7 +15,7 @@ class GanrePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (_) => GanreMovieCubit(movieDB: GetIt.instance.get<ApiMovieDb>()),
+    return BlocProvider(create: (_) => GanreMovieCubit(),
         child: GanreView(height: height,width: width));
   }
 }

@@ -82,7 +82,11 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Movie` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT, `id` INTEGER NOT NULL, `posterPath` TEXT NOT NULL, `title` TEXT NOT NULL, `label` TEXT NOT NULL, `ganre` INTEGER NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `Movie` (`id` INTEGER NOT NULL, `posterPath` TEXT NOT NULL, `title` TEXT NOT NULL, PRIMARY KEY (`id`))');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `Ganre` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY (`id`))');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `GanreAndMovie` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT, `ganreId` INTEGER NOT NULL, `movieId` INTEGER NOT NULL, FOREIGN KEY (`ganreId`) REFERENCES `Ganre` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, FOREIGN KEY (`movieId`) REFERENCES `Movie` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -103,14 +107,24 @@ class _$MovieDao extends MovieDao {
             database,
             'Movie',
             (Movie item) => <String, Object?>{
-                  'uid': item.uid,
                   'id': item.id,
                   'posterPath': item.posterPath,
-                  'title': item.title,
-                  'label': item.label,
-                  'ganre': item.ganre
+                  'title': item.title
                 },
-            changeListener);
+            changeListener),
+        _ganreInsertionAdapter = InsertionAdapter(
+            database,
+            'Ganre',
+            (Ganre item) => <String, Object?>{'id': item.id, 'name': item.name},
+            changeListener),
+        _ganreAndMovieInsertionAdapter = InsertionAdapter(
+            database,
+            'GanreAndMovie',
+            (GanreAndMovie item) => <String, Object?>{
+                  'uid': item.uid,
+                  'ganreId': item.ganreId,
+                  'movieId': item.movieId
+                });
 
   final sqflite.DatabaseExecutor database;
 
@@ -120,16 +134,19 @@ class _$MovieDao extends MovieDao {
 
   final InsertionAdapter<Movie> _movieInsertionAdapter;
 
+  final InsertionAdapter<Ganre> _ganreInsertionAdapter;
+
+  final InsertionAdapter<GanreAndMovie> _ganreAndMovieInsertionAdapter;
+
   @override
-  Stream<List<Movie>> findPopularMovie(String query, int selectedGanre) {
+  Stream<List<Movie>> findMovieByGanre(int selectedGanre) {
     return _queryAdapter.queryListStream(
-        'SELECT * FROM Movie Where label = ?1 AND ganre = ?2',
+        'SELECT * FROM Movie Where id IN (SELECT movieId FROM GanreAndMovie WHERE ganreId = ?1)',
         mapper: (Map<String, Object?> row) => Movie(
-            uid: row['uid'] as int?,
             id: row['id'] as int,
             posterPath: row['posterPath'] as String,
             title: row['title'] as String),
-        arguments: [query, selectedGanre],
+        arguments: [selectedGanre],
         queryableName: 'Movie',
         isView: false);
   }
@@ -138,11 +155,19 @@ class _$MovieDao extends MovieDao {
   Stream<List<Movie>> findAllMovie() {
     return _queryAdapter.queryListStream('SELECT * FROM Movie',
         mapper: (Map<String, Object?> row) => Movie(
-            uid: row['uid'] as int?,
             id: row['id'] as int,
             posterPath: row['posterPath'] as String,
             title: row['title'] as String),
         queryableName: 'Movie',
+        isView: false);
+  }
+
+  @override
+  Stream<List<Ganre>> findAllGanre() {
+    return _queryAdapter.queryListStream('SELECT * FROM Ganre',
+        mapper: (Map<String, Object?> row) =>
+            Ganre(id: row['id'] as int, name: row['name'] as String),
+        queryableName: 'Ganre',
         isView: false);
   }
 
@@ -152,14 +177,41 @@ class _$MovieDao extends MovieDao {
   }
 
   @override
+  Future<void> deleteAllGanreAndMovies() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM GanreAndMovie');
+  }
+
+  @override
+  Future<void> deleteAllGanre() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM Ganre');
+  }
+
+  @override
   Future<void> insertMovie(Movie movie) async {
     await _movieInsertionAdapter.insert(movie, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> insertGanre(Ganre ganre) async {
+    await _ganreInsertionAdapter.insert(ganre, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> insertGanreAndMovie(GanreAndMovie ganreAndMovie) async {
+    await _ganreAndMovieInsertionAdapter.insert(
+        ganreAndMovie, OnConflictStrategy.abort);
   }
 
   @override
   Future<List<int>> insertListMovie(List<Movie> movie) {
     return _movieInsertionAdapter.insertListAndReturnIds(
         movie, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<List<int>> insertListGanre(List<Ganre> ganre) {
+    return _ganreInsertionAdapter.insertListAndReturnIds(
+        ganre, OnConflictStrategy.abort);
   }
 
   @override

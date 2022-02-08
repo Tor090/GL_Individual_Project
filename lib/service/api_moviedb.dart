@@ -17,10 +17,6 @@ class ApiMovieDb extends MovieDB{
       final response = await _dio.get(url);
       var movies = response.data['results'] as List;
       List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
-      movieList.forEach((element) {
-        element.ganre = 0;
-        element.label = 'now_playing';
-      });
       return movieList;
     } catch (error) {
       throw Exception(
@@ -35,10 +31,6 @@ class ApiMovieDb extends MovieDB{
       final response = await _dio.get(url);
       var movies = response.data['results'] as List;
       List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
-      movieList.forEach((element) {
-        element.ganre = 0;
-        element.label = 'popular';
-      });
 
       return movieList;
     } catch (error) {
@@ -54,7 +46,10 @@ class ApiMovieDb extends MovieDB{
       final response = await _dio.get(url);
       var genres = response.data['genres'] as List;
       List<Ganre> ganreList = genres.map((g) => Ganre.fromJson(g)).toList();
-
+      print('add ganre');
+      ganreList.add(Ganre(id: 2,name: 'popular'));
+      ganreList.add(Ganre(id: 1,name: 'now_playing'));
+      print('end to add ganre');
       return ganreList;
     } catch (error) {
       throw Exception(
@@ -69,10 +64,6 @@ class ApiMovieDb extends MovieDB{
       final response = await _dio.get(url);
       var movies = response.data['results'] as List;
       List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
-      movieList.forEach((element) {
-        element.ganre = selectedGanre;
-        element.label = 'ganre';
-      });
 
       return movieList;
     } catch (error) {
