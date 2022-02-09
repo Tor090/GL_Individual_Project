@@ -1,8 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:floor/floor.dart';
+
 part 'movie.g.dart';
 
 @JsonSerializable()
+@entity
 class Movie{
+  @primaryKey
   final int id;
   final String posterPath;
   final String title;

@@ -1,37 +1,28 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:individual_project/model/movie.dart';
+import 'package:individual_project/data/dao/movie_dao.dart';
+import 'package:individual_project/service/api_moviedb.dart';
 import 'package:individual_project/service/moviedb.dart';
 
+import '../../main.dart';
 import 'movie_state.dart';
 
-class MovieCubit extends Cubit<MovieState>{
-  MovieCubit({required this.selectedGanre, required this.query, required this.movieDB})
-      : super(InitialState()){
-    createMovieList(selectedGanre: selectedGanre, query: query!);
+class MovieCubit extends Cubit<MovieState> {
+  MovieCubit({required this.selectedGanre}) : super(InitialState()) {
+    createMovieList(selectedGanre: selectedGanre);
   }
 
   final int selectedGanre;
-  final String? query;
-  MovieDB movieDB;
+  MovieDB movieDB = getIt<ApiMovieDb>();
 
-  void createMovieList({int selectedGanre = 0, String query = ''}) async{
-    try{
-    emit(LoadingState());
-    List<Movie> movieList;
-    if (selectedGanre == 0 && query == 'popular'){
-      movieList = await movieDB.getPopularMovie();
-      //emit(movieList);
-    } else if (selectedGanre == 0 && query == 'now_playing'){
-        movieList = await movieDB.getNowPlayingMovie();
-       // emit(movieList);
-    } else{
-        movieList = await movieDB.getMovieByGanre(selectedGanre);
-        //emit(movieList);
-    }
-    emit(LoadedState(movieList));
-    }catch(e){
+  void createMovieList({required int selectedGanre}) async {
+    try {
+      emit(LoadingState());
+
+      await getIt<MovieDao>().createMovieList(selectedGanre: selectedGanre);
+
+      emit(LoadedState());
+    } catch (e) {
       emit(ErrorState());
     }
   }
-
 }

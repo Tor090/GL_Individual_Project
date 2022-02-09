@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:individual_project/data/dao/movie_dao.dart';
 import 'package:individual_project/service/api_moviedb.dart';
+
+import 'data/database/database.dart';
 import 'navigator/route_generator.dart';
 
+GetIt getIt = GetIt.instance;
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
+  getIt.registerLazySingleton<ApiMovieDb>(() => ApiMovieDb());
+
+  final database =
+      await $FloorAppDatabase.databaseBuilder('movie34.db').build();
+  final dao = database.movieDao;
+  getIt.registerSingleton<MovieDao>(dao);
+
   runApp(MyApp());
-  final apiMovieDb = ApiMovieDb();
-  GetIt.instance.registerSingleton(apiMovieDb);
-
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +33,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         backgroundColor: Colors.black,
         appBarTheme: AppBarTheme(color: Colors.teal[900]),
-            // New
+        // New
       ),
       onGenerateRoute: RouteGenerator.onGenerateRoute,
       onUnknownRoute: RouteGenerator.onUnknownRoute,

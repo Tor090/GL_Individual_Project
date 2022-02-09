@@ -1,8 +1,10 @@
-const double kBlur = 15;
-const kHomeBackgroundPhoto = 'assets/moviedb.png';
-const kNoPhoto = 'assets/no_photo.jpg';
-const double kNowPlayHeigh = 2;
-const double kMovieWidth = 1.7;
-const double kMovieHeigh = 3;
-const double kMovieDetailCastImageSize = 80;
-const kphoto = 'https://image.tmdb.org/t/p/w500/';
+class Constant {
+  static double kBlur = 15;
+  static String kHomeBackgroundPhoto = 'assets/moviedb.png';
+  static String kNoPhoto = 'assets/no_photo.jpg';
+  static double kNowPlayHeigh = 2;
+  static double kMovieWidth = 1.7;
+  static double kMovieHeigh = 3;
+  static double kMovieDetailCastImageSize = 80;
+  static String kphoto = 'https://image.tmdb.org/t/p/w500/';
+}

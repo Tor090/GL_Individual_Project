@@ -12,52 +12,51 @@ class SearchMovieView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-      ),
-      body: BlocBuilder<SearchMovieCubit,SearchState>
-        (builder: (context, state) {
-        if (state is LoadingState) {
-          return const Center(
-            child: CircularProgressIndicator.adaptive(),
-          );
-        } else if (state is ErrorState) {
-          return const Center(
-            child: Icon(Icons.close),
-          );
-        } else if (state is LoadedState) {
-          List<Movie> movies = state.searchMovieList;
-          return ListView.builder(
+      appBar: AppBar(),
+      body: BlocBuilder<SearchMovieCubit, SearchState>(
+        builder: (context, state) {
+          if (state is LoadingState) {
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          } else if (state is ErrorState) {
+            return const Center(
+              child: Icon(Icons.close),
+            );
+          } else if (state is LoadedState) {
+            List<Movie> movies = state.searchMovieList;
+            return ListView.builder(
               itemCount: movies.length,
               itemBuilder: (context, index) {
                 Movie movie = movies[index];
                 return Card(
-                    elevation: 5,
-                    borderOnForeground: true,
-                    child: InkWell(
-                      onTap: (){
-                        print(movie.id);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                            builder: (context) =>
-                                MovieDetailPage(movieId: movies[index].id),
-                          ),
-                        );
-                      },
-                      child: ClipRRect(
-                              child: Image.network(
-                                movie.posterPath,
-                                fit: BoxFit.fill,
-                              ),
-                              borderRadius: movieBorder,
-                            ),
+                  elevation: 5,
+                  borderOnForeground: true,
+                  child: InkWell(
+                    onTap: () {
+                      print(movie.id);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              MovieDetailPage(movieId: movies[index].id),
+                        ),
+                      );
+                    },
+                    child: ClipRRect(
+                      child: Image.network(
+                        movie.posterPath,
+                        fit: BoxFit.fill,
+                      ),
+                      borderRadius: DefaultStyle.movieBorder,
+                    ),
                   ),
                 );
               },
-          );
-        }else{
-          return Container();
-        }
+            );
+          } else {
+            return Container();
+          }
         },
       ),
     );
