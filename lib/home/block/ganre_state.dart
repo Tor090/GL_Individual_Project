@@ -1,6 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:individual_project/model/ganre.dart';
-
 
 abstract class GanreState extends Equatable {}
 
@@ -15,12 +13,12 @@ class LoadingState extends GanreState {
 }
 
 class LoadedState extends GanreState {
-  LoadedState(this.ganreMovieList);
+  //LoadedState(this.ganreMovieList);
 
-  final List<Ganre> ganreMovieList;
+  //final List<Ganre> ganreMovieList;
 
   @override
-  List<Object> get props => [ganreMovieList];
+  List<Object> get props => [];
 }
 
 class ErrorState extends GanreState {

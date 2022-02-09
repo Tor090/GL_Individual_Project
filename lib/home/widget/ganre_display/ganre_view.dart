@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:individual_project/constant/style.dart';
 import 'package:individual_project/data/dao/movie_dao.dart';
-import 'package:individual_project/data/database/database.dart';
 import 'package:individual_project/home/block/ganre_cubit.dart';
 import 'package:individual_project/home/block/ganre_state.dart';
 import 'package:individual_project/home/widget/movie/movie_page.dart';
@@ -13,10 +12,8 @@ import '../../../main.dart';
 class GanreView extends StatefulWidget {
   final double height, width;
 
-  const GanreView({
-    Key? key,
-    required this.height,
-    required this.width}) : super(key: key);
+  const GanreView({Key? key, required this.height, required this.width})
+      : super(key: key);
 
   @override
   _GanreViewState createState() => _GanreViewState();
@@ -46,13 +43,15 @@ class _GanreViewState extends State<GanreView> {
     );
   }
 
-  Widget streamForGanre(){
+  Widget streamForGanre() {
     final dao = getIt<MovieDao>();
     return StreamBuilder<List<Ganre>>(
       stream: dao.findAllGanre(),
       builder: (BuildContext context, AsyncSnapshot<List<Ganre>> snapshot) {
-        if(snapshot.hasData){
+        if (snapshot.hasData) {
           List<Ganre> genres = snapshot.data!;
+          genres.removeWhere((element) => element.name == 'popular');
+          genres.removeWhere((element) => element.name == 'now_playing');
           return SizedBox(
             height: 45,
             child: ListView.builder(
@@ -77,7 +76,7 @@ class _GanreViewState extends State<GanreView> {
                             border: Border.all(
                               color: Colors.black45,
                             ),
-                            borderRadius: circularBorder,
+                            borderRadius: DefaultStyle.circularBorder,
                             color: (ganre.id == selectedGanre)
                                 ? Colors.black45
                                 : Colors.white,
@@ -90,27 +89,25 @@ class _GanreViewState extends State<GanreView> {
                               color: (ganre.id == selectedGanre)
                                   ? Colors.white
                                   : Colors.black45,
-
                             ),
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 );
               },
             ),
           );
-        }else{
+        } else {
           return blocForInsertToDB();
         }
       },
     );
   }
 
-  Widget blocForInsertToDB(){
-    return BlocBuilder<GanreMovieCubit,GanreState>(
+  Widget blocForInsertToDB() {
+    return BlocBuilder<GanreMovieCubit, GanreState>(
       builder: (context, state) {
         if (state is LoadingState) {
           return const Center(
@@ -122,12 +119,10 @@ class _GanreViewState extends State<GanreView> {
           );
         } else if (state is LoadedState) {
           return streamForGanre();
-        }else{
+        } else {
           return Container();
         }
       },
     );
   }
-
 }
-
