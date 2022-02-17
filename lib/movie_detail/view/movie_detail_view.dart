@@ -5,13 +5,21 @@ import 'package:individual_project/movie_detail/bloc/movie_detail_state.dart';
 import 'package:individual_project/movie_detail/widget/body.dart';
 
 class MovieDetailView extends StatelessWidget {
-  const MovieDetailView({Key? key }) : super(key: key);
+  const MovieDetailView({required this.movieId, Key? key}) : super(key: key);
 
+  final int movieId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<MovieDetailCubit,MovieDetailState>(
+      body: BlocBuilder<MovieDetailCubit, MovieDetailState>(
         builder: (context, state) {
+          if (state is InitialState) {
+            BlocProvider.of<MovieDetailCubit>(context)
+                .createMovieDetailList(movieId: movieId);
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          }
           if (state is LoadingState) {
             return const Center(
               child: CircularProgressIndicator.adaptive(),
@@ -22,8 +30,8 @@ class MovieDetailView extends StatelessWidget {
             );
           } else if (state is LoadedState) {
             final movie = state.movieDetail;
-            return  Body(movie: movie);
-          }else{
+            return Body(movie: movie);
+          } else {
             return Container();
           }
         },
@@ -31,8 +39,3 @@ class MovieDetailView extends StatelessWidget {
     );
   }
 }
-
-
-
-
-

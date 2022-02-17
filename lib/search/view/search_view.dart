@@ -7,7 +7,9 @@ import 'package:individual_project/search/bloc/search_cubit.dart';
 import 'package:individual_project/search/bloc/search_state.dart';
 
 class SearchMovieView extends StatelessWidget {
-  const SearchMovieView({Key? key}) : super(key: key);
+  const SearchMovieView({required this.query, Key? key}) : super(key: key);
+
+  final String query;
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +17,13 @@ class SearchMovieView extends StatelessWidget {
       appBar: AppBar(),
       body: BlocBuilder<SearchMovieCubit, SearchState>(
         builder: (context, state) {
+          if (state is InitialState) {
+            BlocProvider.of<SearchMovieCubit>(context)
+                .createSearchMovieList(query: query);
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          }
           if (state is LoadingState) {
             return const Center(
               child: CircularProgressIndicator.adaptive(),
@@ -23,7 +32,8 @@ class SearchMovieView extends StatelessWidget {
             return const Center(
               child: Icon(Icons.close),
             );
-          } else if (state is LoadedState) {
+          }
+          if (state is LoadedState) {
             List<Movie> movies = state.searchMovieList;
             return ListView.builder(
               itemCount: movies.length,

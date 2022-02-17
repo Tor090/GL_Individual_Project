@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:individual_project/constant/style.dart';
 import 'package:individual_project/data/dao/movie_dao.dart';
-import 'package:individual_project/home/block/ganre_cubit.dart';
-import 'package:individual_project/home/block/ganre_state.dart';
+import 'package:individual_project/home/block/ganre/ganre_cubit.dart';
+import 'package:individual_project/home/block/ganre/ganre_state.dart';
 import 'package:individual_project/home/widget/movie/movie_page.dart';
 import 'package:individual_project/model/ganre.dart';
 
@@ -109,6 +109,12 @@ class _GanreViewState extends State<GanreView> {
   Widget blocForInsertToDB() {
     return BlocBuilder<GanreMovieCubit, GanreState>(
       builder: (context, state) {
+        if (state is InitialState) {
+          BlocProvider.of<GanreMovieCubit>(context).createGanreMovieList();
+          return const Center(
+            child: CircularProgressIndicator.adaptive(),
+          );
+        }
         if (state is LoadingState) {
           return const Center(
             child: CircularProgressIndicator.adaptive(),

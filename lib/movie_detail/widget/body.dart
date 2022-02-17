@@ -15,6 +15,7 @@ class Body extends StatelessWidget {
   }) : super(key: key);
 
   final MovieDetail movie;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -54,11 +55,10 @@ class Body extends StatelessWidget {
                     SizedBox(
                       width: size.width / 2,
                       height: 50,
-                      child: Flexible(
-                        child: Text('${movie.title} ${movie.releaseDate}',
-                            style: DefaultStyle.movieDetailHeaderStyle),
-                      ),
+                      child: Text('${movie.title} ${movie.releaseDate}',
+                          style: DefaultStyle.movieDetailHeaderStyle),
                     ),
+                    //),
                   ],
                 ),
                 const SizedBox(
@@ -146,7 +146,7 @@ class Body extends StatelessWidget {
                                             ),
                                     ),
                                   ),
-                                  Flexible(child: Text(cast.name)),
+                                  Text(cast.name),
                                 ],
                               ),
                             );

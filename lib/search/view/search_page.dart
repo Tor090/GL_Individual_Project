@@ -7,14 +7,13 @@ import 'package:individual_project/service/api_moviedb.dart';
 
 class SearchMoviePage extends StatelessWidget {
   final String query;
-  const SearchMoviePage({Key? key,
-    required this.query}) : super(key: key);
-
+  const SearchMoviePage({Key? key, required this.query}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (_) =>
-        SearchMovieCubit(query: query, movieDB: GetIt.instance.get<ApiMovieDb>()),
-        child: const SearchMovieView());
+    return BlocProvider(
+        create: (_) =>
+            SearchMovieCubit(movieDB: GetIt.instance.get<ApiMovieDb>()),
+        child: SearchMovieView(query: query));
   }
 }

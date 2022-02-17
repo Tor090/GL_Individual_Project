@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:individual_project/data/dao/movie_dao.dart';
-import 'package:individual_project/home/block/movie_cubit.dart';
-import 'package:individual_project/home/block/movie_state.dart';
+import 'package:individual_project/home/block/movie/movie_cubit.dart';
+import 'package:individual_project/home/block/movie/movie_state.dart';
 import 'package:individual_project/model/movie.dart';
 
 import '../../../main.dart';
@@ -41,6 +41,13 @@ class MovieView extends StatelessWidget {
 
   Widget blocForAddDataToDB() {
     return BlocBuilder<MovieCubit, MovieState>(builder: (context, state) {
+      if (state is InitialState) {
+        BlocProvider.of<MovieCubit>(context)
+            .createMovieList(selectedGanre: selectedGanre);
+        return const Center(
+          child: CircularProgressIndicator.adaptive(),
+        );
+      }
       if (state is LoadingState) {
         return const Center(
           child: CircularProgressIndicator.adaptive(),

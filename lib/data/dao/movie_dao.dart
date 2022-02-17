@@ -2,9 +2,7 @@ import 'package:floor/floor.dart';
 import 'package:individual_project/model/ganre.dart';
 import 'package:individual_project/model/ganre_movie_id.dart';
 import 'package:individual_project/model/movie.dart';
-import 'package:individual_project/service/api_moviedb.dart';
-
-import '../../main.dart';
+import 'package:individual_project/service/moviedb.dart';
 
 @dao
 abstract class MovieDao {
@@ -62,30 +60,31 @@ abstract class MovieDao {
     }
   }
 
-  Future<void> createGanreList() async {
-    List<Ganre> ganreMovieList = await getIt<ApiMovieDb>().getGenreList();
+  Future<void> createGanreList({required MovieDB apiMovieDb}) async {
+    List<Ganre> ganreMovieList = await apiMovieDb.getGenreList();
     insertListGanre(ganreMovieList);
   }
 
-  Future<void> createMovieList({required int selectedGanre}) async {
+  Future<void> createMovieList(
+      {required MovieDB apiMovieDb, required int selectedGanre}) async {
     try {
       List<Movie> movieList;
       if (selectedGanre == 2) {
-        movieList = await getIt<ApiMovieDb>().getPopularMovie();
+        movieList = await apiMovieDb.getPopularMovie();
         print('try1');
       } else if (selectedGanre == 1) {
-        movieList = await getIt<ApiMovieDb>().getNowPlayingMovie();
+        movieList = await apiMovieDb.getNowPlayingMovie();
         print('try2');
       } else {
-        movieList = await getIt<ApiMovieDb>().getMovieByGanre(selectedGanre);
+        movieList = await apiMovieDb.getMovieByGanre(selectedGanre);
         print('try3');
       }
+      replaceMovies(movieList);
+
       for (var element in movieList) {
         insertGanreAndMovie(
             GanreAndMovie(ganreId: selectedGanre, movieId: element.id));
       }
-
-      replaceMovies(movieList);
 
       print('tryeeeeeee');
     } catch (e) {
