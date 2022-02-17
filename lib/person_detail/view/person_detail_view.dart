@@ -7,14 +7,22 @@ import 'package:individual_project/person_detail/bloc/person_detail_cubit.dart';
 import 'package:individual_project/person_detail/bloc/person_detail_state.dart';
 
 class PersonDetailView extends StatelessWidget {
-  const PersonDetailView({Key? key}) : super(key: key);
+  const PersonDetailView({required this.personId, Key? key}) : super(key: key);
 
+  final int personId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: BlocBuilder<PersonDetailCubit, PersonDetailState>(
           builder: (context, state) {
+        if (state is InitialState) {
+          BlocProvider.of<PersonDetailCubit>(context)
+              .createMovieDetailList(personId: personId);
+          return const Center(
+            child: CircularProgressIndicator.adaptive(),
+          );
+        }
         if (state is LoadingState) {
           return const Center(
             child: CircularProgressIndicator.adaptive(),
